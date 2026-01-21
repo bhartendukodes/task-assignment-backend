@@ -7,7 +7,8 @@ class Settings(BaseSettings):
     """Application settings"""
     
     # Database (SQLite fallback for easy testing)
-    database_url: str = "sqlite:///./task_assignment.db"  # Fallback to SQLite for easy testing
+    # On Render, use /tmp for SQLite (persists during deployment)
+    database_url: str = "sqlite:////tmp/task_assignment.db"  # Use /tmp for Render compatibility
     # For PostgreSQL use: postgresql+asyncpg://username:password@localhost:5432/task_assignment
     
     # JWT

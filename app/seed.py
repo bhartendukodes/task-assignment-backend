@@ -73,7 +73,7 @@ def create_dummy_events(db: Session):
             "location": "San Francisco Convention Center",
             "event_date": base_date + timedelta(days=14),
             "total_slots": 500,
-            "image_url": "https://source.unsplash.com/800x600/?conference,technology"
+            "image_url": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop"
         },
         {
             "title": "Rock Concert: Electric Nights",
@@ -81,7 +81,7 @@ def create_dummy_events(db: Session):
             "location": "Madison Square Garden, New York",
             "event_date": base_date + timedelta(days=21),
             "total_slots": 15000,
-            "image_url": "https://source.unsplash.com/800x600/?concert,rock,music"
+            "image_url": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&h=600&fit=crop"
         },
         {
             "title": "Startup Pitch Competition",
@@ -89,7 +89,7 @@ def create_dummy_events(db: Session):
             "location": "Google Campus, Mountain View",
             "event_date": base_date + timedelta(days=35),
             "total_slots": 200,
-            "image_url": "https://source.unsplash.com/800x600/?startup,business,presentation"
+            "image_url": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop"
         },
         {
             "title": "Food & Wine Festival",
@@ -97,7 +97,7 @@ def create_dummy_events(db: Session):
             "location": "Napa Valley, California",
             "event_date": base_date + timedelta(days=42),
             "total_slots": 800,
-            "image_url": "https://source.unsplash.com/800x600/?food,wine,festival"
+            "image_url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop"
         },
         {
             "title": "Art Gallery Opening: Modern Expressions",
@@ -105,7 +105,7 @@ def create_dummy_events(db: Session):
             "location": "Museum of Modern Art, New York",
             "event_date": base_date + timedelta(days=28),
             "total_slots": 150,
-            "image_url": "https://source.unsplash.com/800x600/?art,gallery,modern"
+            "image_url": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop"
         },
         {
             "title": "Marathon Training Workshop",
@@ -113,7 +113,7 @@ def create_dummy_events(db: Session):
             "location": "Central Park, New York",
             "event_date": base_date + timedelta(days=7),
             "total_slots": 100,
-            "image_url": "https://source.unsplash.com/800x600/?marathon,running,fitness"
+            "image_url": "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&h=600&fit=crop"
         },
         {
             "title": "Jazz Evening with Live Orchestra",
@@ -121,7 +121,7 @@ def create_dummy_events(db: Session):
             "location": "Blue Note Jazz Club, New York",
             "event_date": base_date + timedelta(days=49),
             "total_slots": 80,
-            "image_url": "https://source.unsplash.com/800x600/?jazz,music,orchestra"
+            "image_url": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop"
         },
         {
             "title": "Digital Marketing Masterclass",
@@ -129,7 +129,7 @@ def create_dummy_events(db: Session):
             "location": "WeWork, San Francisco",
             "event_date": base_date + timedelta(days=63),
             "total_slots": 50,
-            "image_url": "https://source.unsplash.com/800x600/?marketing,digital,workshop"
+            "image_url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop"
         }
     ]
     
@@ -230,4 +230,5 @@ def seed_database(db: Session):
     except Exception as e:
         logger.error(f"Error during database seeding: {e}")
         db.rollback()
-        raise
+        # Don't raise - allow app to continue even if seeding fails
+        logger.warning("Continuing without seeded data. Database may be empty.")

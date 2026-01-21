@@ -32,11 +32,13 @@ async def lifespan(app: FastAPI):
             seed_database(db)
         except Exception as seed_error:
             logger.error(f"Database seeding failed: {seed_error}")
+            # Don't raise - allow app to start even if seeding fails
         finally:
             db.close()
             
     except Exception as e:
         logger.error(f"Failed to create database tables: {e}")
+        # Don't raise - allow app to start even if DB setup fails initially
     
     yield
     
