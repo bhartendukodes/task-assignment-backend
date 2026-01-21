@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Request
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.schemas.event import EventCreate, EventResponse
@@ -9,10 +9,17 @@ router = APIRouter(prefix="/events", tags=["events"])
 
 
 @router.post("/", response_model=EventResponse, status_code=status.HTTP_201_CREATED)
-async def create_event(event: EventCreate, db: Session = Depends(get_db)):
-    """Create a new event"""
+async def create_event(event: EventCreate, request: Request, db: Session = Depends(get_db)):
+    """Create a new event with IP address tracking from header"""
     try:
-        db_event = EventService.create_event(db, event)
+        # Extract IP address from custom header (passed from phone after permission)
+        client_ip = request.headers.get("X-Client-IP") or request.headers.get("X-Phone-IP")
+        
+        # If no IP in header, optionally fall back to request client IP
+        if not client_ip:
+            client_ip = request.client.host if request.client else None
+        
+        db_event = EventService.create_event(db, event, client_ip)
         
         # Add booking information for response
         db_event.booking_count = 0

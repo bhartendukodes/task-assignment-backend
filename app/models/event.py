@@ -14,6 +14,7 @@ class Event(Base):
     event_date = Column(DateTime(timezone=True), nullable=False)
     total_slots = Column(Integer, nullable=False)
     image_url = Column(String(500), nullable=True)
+    creator_ip = Column(String(45), nullable=True)  # IPv4 max 15 chars, IPv6 max 45 chars
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     
     # Relationships

@@ -19,6 +19,7 @@ class EventCreate(EventBase):
 class EventResponse(EventBase):
     id: int
     created_at: datetime
+    creator_ip: Optional[str] = None
     available_slots: Optional[int] = None
     booking_count: Optional[int] = None
     

@@ -8,15 +8,16 @@ from app.schemas.event import EventCreate, EventResponse
 
 class EventService:
     @staticmethod
-    def create_event(db: Session, event: EventCreate) -> Event:
-        """Create a new event"""
+    def create_event(db: Session, event: EventCreate, creator_ip: str = None) -> Event:
+        """Create a new event with IP address tracking"""
         db_event = Event(
             title=event.title,
             description=event.description,
             location=event.location,
             event_date=event.event_date,
             total_slots=event.total_slots,
-            image_url=event.image_url
+            image_url=event.image_url,
+            creator_ip=creator_ip
         )
         
         db.add(db_event)
